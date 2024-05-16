@@ -6,9 +6,7 @@ CC = g++
 
 SRCS = main.cpp \
 	phoneBook.cpp \
-	phoneBook.hpp \
-	contact.cpp \
-	contact.hpp
+	contact.cpp
 
 OBJECT = $(SRCS:.cpp=.o)
 
