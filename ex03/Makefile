@@ -1,27 +1,40 @@
-NAME = zombie
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+INCLUDE = -I./includes
+VPATH = srcs
+RM = rm -rf
 
-FLAGS = -Wall -Wextra -Werror
+GENERAL = Zombie zombieHorde
 
-CC = g++
+NAME = horde
+SRCS = $(addsuffix .cpp, $(GENERAL))\
+	   main.cpp
 
-SRCS = main.cpp \
-	Zombie.cpp \
-	ZombieHorde.cpp
+OBJ_DIR = obj
+OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
-OBJECT = $(SRCS:.cpp=.o)
+all: $(NAME)
 
-$(NAME):
-	$(CC) $(FLAGS) -c $(SRCS) 
-	$(CC) $(FLAGS) -o $(NAME) $(OBJECT)
+$(NAME): $(OBJ_DIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-all: $(NAME)	
+$(OBJ_DIR):
+	mkdir -p obj
+
+$(OBJ_DIR)/%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 clean:
-	del $(OBJECT)
+	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	del $(NAME).exe
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean  re
+run: all clean
+	./$(NAME)
+
+.PHONY: all clean fclean re run
+
+#.SILENT:

@@ -1,4 +1,4 @@
-#include "Zombie.hpp"
+#include "../includes/Zombie.hpp"
 #include <iostream>
 
 using std::cout;

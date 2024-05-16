@@ -2,7 +2,7 @@
 #include <iostream> // std::cin, std::cout, std::endl
 #include <string>
 #include <stdio.h>
-#include "Zombie.hpp"
+#include "includes/Zombie.hpp"
 
 using std::cin;
 using std::cout;
