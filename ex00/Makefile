@@ -1,9 +1,25 @@
-CC = g++
-CFLAGS = -Wall -g
+NAME = megaphone
 
-myprogram: megaphone.o
-	$(CC) $(CFLAGS) -o myprogram megaphone.o
-main.o: megaphone.cpp
-	$(CC) $(CFLAGS) -c megaphone.cpp
+FLAGS = -Wall -Wextra -Werror
+
+CC = g++
+
+SRCS = megaphone.cpp
+
+OBJECT = $(SRCS:.cpp=.o)
+
+$(NAME):
+	$(CC) $(FLAGS) -c $(SRCS) 
+	$(CC) $(FLAGS) -o $(NAME) $(OBJECT)
+
+all: $(NAME)	
+
 clean:
-	rm f * o myprogram
+	rm -rf $(OBJECT)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean  re
