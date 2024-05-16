@@ -1,4 +1,4 @@
-NAME = megaphon
+NAME = megaphone
 
 FLAGS = -Wall -Wextra -Werror
 
