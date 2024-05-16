@@ -4,7 +4,7 @@ FLAGS = -Wall -Wextra -Werror
 
 CC = g++
 
-SRCS = megaphone.cpp
+SRCS = megaphone.cpp \
 
 OBJECT = $(SRCS:.cpp=.o)
 
@@ -15,10 +15,10 @@ $(NAME):
 all: $(NAME)	
 
 clean:
-	rm -rf $(OBJECT)
+	del $(OBJECT)
 
 fclean: clean
-	rm -rf $(NAME)
+	del $(NAME).exe
 
 re: fclean all
 
