@@ -10,12 +10,12 @@ Bureaucrat::Bureaucrat(const std::string name, const int grade)
 	
 	if (grade == 0)
 	{
-		throw "Grade too low.";
+		throw GradeTooLowException();
 	}
 
 	else if (grade == 0)
 	{
-		throw "Grade too high.";
+		throw GradeTooLowException();
 	}
 
 	std::cout << "Default constructor " << name << " has been called." << std::endl;
