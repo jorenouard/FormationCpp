@@ -1,7 +1,9 @@
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
-# include <string>
+#include <string>
+#include <iostream>
+#include <exception>
 
 class Bureaucrat {
 	public:
@@ -14,11 +16,23 @@ class Bureaucrat {
 		const std::string getName(const Bureaucrat &bureaucrat);
 		const int getGrade(const Bureaucrat &bureaucrat);
 
+		class GradeTooLowException : public std::exception
+		{
+			public:
+			virtual const char* what() const throw();
+		};
+
+		class GradeTooHighException : public std::exception
+		{
+			public:
+			virtual const char* what() const throw();
+		};
+
 	private:
 		const std::string name;
 		const int grade;
 };
 
-std::ostream &operator<<(std::ostream &output, Fixed const &val);
+//std::ostream &operator<<(std::ostream &output, Fixed const &val);
 
 #endif // BUREAUCRAT_HPP

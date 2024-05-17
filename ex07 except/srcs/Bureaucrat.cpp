@@ -1,4 +1,6 @@
+#include <string>
 #include <iostream>
+#include <exception>
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat(const std::string name, const int grade)
@@ -13,7 +15,7 @@ Bureaucrat::Bureaucrat(const std::string name, const int grade)
 
 	else if (grade == 0)
 	{
-		throw "Grade too low.";
+		throw "Grade too high.";
 	}
 
 	std::cout << "Default constructor " << name << " has been called." << std::endl;
@@ -52,4 +54,14 @@ const std::string Bureaucrat::getName(const Bureaucrat &bureaucrat)
 const int Bureaucrat::getGrade(const Bureaucrat &bureaucrat)
 {
 	return bureaucrat.grade;
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return "Grade is too low";
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return "Grade is too high";
 }
