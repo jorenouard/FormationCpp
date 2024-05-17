@@ -28,7 +28,7 @@ class Bureaucrat {
 			virtual const char* what() const throw();
 		};
 
-	private:
+	protected:
 		const std::string name;
 		const int grade;
 };
