@@ -9,7 +9,7 @@ class ScavTrap: public ClapTrap {
 		ScavTrap (std::string name);
 		~ScavTrap (void);
 
-		void attack (const std::string& target) override;
+		void attack (const std::string& target);
         void guardGate();
 
 	private:

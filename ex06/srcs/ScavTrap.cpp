@@ -1,5 +1,6 @@
 #include <iostream>
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
+#include <string>
 
 using std::cout;
 using std::endl;
@@ -11,7 +12,8 @@ ScavTrap::ScavTrap (std::string name)
 
 ScavTrap::~ScavTrap (void)
 {
-    cout << "Destructor for ScavTrap has been called" << end;
+    cout << "Destructor for ScavTrap has been called" << endl;
+    ClapTrap::~ClapTrap(void);
 }
 
 void ScavTrap::attack(const std::string& target)
