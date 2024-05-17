@@ -1,10 +1,10 @@
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++98 
 INCLUDE = -I./includes
 VPATH = srcs
-RM = rm -rf
+RM = del 
 
-GENERAL = ClapTrap
+GENERAL = ClapTrap ScavTrap
 
 NAME = ClapTrap
 SRCS = $(addsuffix .cpp, $(GENERAL))\
@@ -16,7 +16,7 @@ OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 
 $(OBJ_DIR):
 	mkdir -p obj
@@ -28,14 +28,10 @@ clean:
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME).exe
 
 re: fclean all
 
-run: all clean
-	echo ""
-	./ex00
-
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re 
 
 #.SILENT:

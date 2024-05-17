@@ -5,15 +5,17 @@
 using std::cout;
 using std::endl;
 
-ScavTrap::ScavTrap (std::string name)
-: name(name), hit_points(100), energy_points(50), attack_damage(20) {
-	cout << "Default constructor <" << name << "> has been called!" << endl;
+ScavTrap::ScavTrap (std::string name): ClapTrap(name) {
+	this->hit_points = 100;
+    this->energy_points = 50;
+    this->attack_damage = 20;
+    cout << "Default constructor <" << name << "> has been called!" << endl;
 }
 
 ScavTrap::~ScavTrap (void)
 {
     cout << "Destructor for ScavTrap has been called" << endl;
-    ClapTrap::~ClapTrap(void);
+    ClapTrap::~ClapTrap();
 }
 
 void ScavTrap::attack(const std::string& target)
