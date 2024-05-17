@@ -1,5 +1,5 @@
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address
 INCLUDE = -I./includes
 VPATH = srcs
 RM = del
@@ -8,7 +8,7 @@ GENERAL = ClapTrap ScavTrap
 
 NAME = ScavTrap
 SRCS = $(addsuffix .cpp, $(GENERAL))\
-	   main.cpp
+	   main.cpp		
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
@@ -16,7 +16,7 @@ OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lm
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p obj
