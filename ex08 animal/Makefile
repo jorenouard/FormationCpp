@@ -4,9 +4,9 @@ INCLUDE = -I./includes
 VPATH = srcs
 RM = del /f /q /a
 
-GENERAL = Bureaucrat
+GENERAL = animal
 
-NAME = Bureaucrat
+NAME = Animal Dog Cat
 SRCS = $(addsuffix .cpp, $(GENERAL))\
 	   main.cpp		
 

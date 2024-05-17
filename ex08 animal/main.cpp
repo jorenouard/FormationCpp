@@ -3,6 +3,9 @@
 #include "Dog.hpp"
 #include "Cat.hpp"
 
+using std::cout;
+using std::endl;
+
 int main()
 {
 	const Animal* dog = new Dog();

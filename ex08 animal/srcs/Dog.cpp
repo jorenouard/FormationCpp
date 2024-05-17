@@ -12,12 +12,12 @@ Dog::~Dog()
     std::cout << "A dog is died." << std::endl;
 }
 
-const std::string Dog::getType()
+const std::string Dog::getType() const
 {
     return type;
 }
 
-void Dog::makeSound()
+void Dog::makeSound() const
 {
     std::cout << "Barking" << std::endl;
 }

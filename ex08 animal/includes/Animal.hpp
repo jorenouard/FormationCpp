@@ -8,8 +8,8 @@
             Animal();
             ~Animal();
 
-            virtual const std::string getType();
-            virtual void makeSound();
+            virtual const std::string getType() const;
+            virtual void makeSound() const;
 
         private:
             std::string type;

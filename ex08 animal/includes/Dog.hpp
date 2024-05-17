@@ -8,9 +8,9 @@ class Dog : public Animal {
         Dog();
         ~Dog();
 
-        const std::string getType() override;
+        const std::string getType() const override;
         const std::string type;
-        void makeSound() override;
+        void makeSound() const override;
             
 };
 
