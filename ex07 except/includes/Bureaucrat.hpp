@@ -7,14 +7,17 @@
 
 class Bureaucrat {
 	public:
-		Bureaucrat(const std::string name, const int grade);
+		Bureaucrat(const std::string name, int grade);
 		~Bureaucrat();
 
 		Bureaucrat(const Bureaucrat &to_copy);
 		Bureaucrat& operator=(const Bureaucrat &original);
 
-		const std::string getName(const Bureaucrat &bureaucrat);
-		const int getGrade(const Bureaucrat &bureaucrat);
+		const std::string getName();
+		const int getGrade();
+
+		void incrementBureaucrat();
+		void decrementBureaucrat();
 
 		class GradeTooLowException : public std::exception
 		{
@@ -30,9 +33,9 @@ class Bureaucrat {
 
 	protected:
 		const std::string name;
-		const int grade;
+		int grade;
 };
 
-//std::ostream &operator<<(std::ostream &output, Fixed const &val);
+std::ostream &operator<<(std::ostream &output, Bureaucrat const &val);
 
 #endif // BUREAUCRAT_HPP

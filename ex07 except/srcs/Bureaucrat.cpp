@@ -3,7 +3,7 @@
 #include <exception>
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(const std::string name, const int grade)
+Bureaucrat::Bureaucrat(const std::string name, int grade)
 : name(name), grade(grade)
 {
 	std::cout << "Default constructor " << name << " has been tried." << std::endl;
@@ -13,9 +13,9 @@ Bureaucrat::Bureaucrat(const std::string name, const int grade)
 		throw GradeTooLowException();
 	}
 
-	else if (grade == 0)
+	else if (grade > 150)
 	{
-		throw GradeTooLowException();
+		throw GradeTooHighException();
 	}
 
 	std::cout << "Default constructor " << name << " has been called." << std::endl;
@@ -29,8 +29,7 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat::Bureaucrat(const Bureaucrat &to_copy)
 {
-	this->name = to_copy.name;
-	this->grade = to_copy.grade;
+	*this = to_copy;
 	std::cout << "a copy has been made." << std::endl;
 }
 
@@ -38,7 +37,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &original)
 {
 	if (this != &original)
 	{
-		this->name = original.name;
 		this->grade = original.grade;
 	}
 
@@ -46,14 +44,14 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &original)
 	return *this;
 }
 
-const std::string Bureaucrat::getName(const Bureaucrat &bureaucrat)
+const std::string Bureaucrat::getName()
 {
-	return bureaucrat.name;
+	return this->name;
 }
 
-const int Bureaucrat::getGrade(const Bureaucrat &bureaucrat)
+const int Bureaucrat::getGrade()
 {
-	return bureaucrat.grade;
+	return this->grade;
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
@@ -64,4 +62,22 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return "Grade is too high";
+}
+
+void Bureaucrat::incrementBureaucrat()
+{
+	this->grade -= 1;
+	if (this->grade == 0) throw GradeTooLowException();
+}
+
+void Bureaucrat::decrementBureaucrat()
+{
+	this->grade += 1;
+	if (this->grade == 0) throw GradeTooHighException();
+}
+
+std::ostream &operator<<(std::ostream &output, Bureaucrat const &bureaucrat)
+{
+	output << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << ".";
+	return (output);
 }
