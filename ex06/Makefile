@@ -2,7 +2,7 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address
 INCLUDE = -I./includes
 VPATH = srcs
-RM = del
+RM = del /f /q /a
 
 GENERAL = ClapTrap ScavTrap
 
