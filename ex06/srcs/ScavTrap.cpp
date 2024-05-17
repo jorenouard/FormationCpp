@@ -9,7 +9,7 @@ ScavTrap::ScavTrap (std::string name): ClapTrap(name) {
 	this->hit_points = 100;
     this->energy_points = 50;
     this->attack_damage = 20;
-    cout << "Default constructor <" << name << "> has been called!" << endl;
+    cout << "ScavTrap default constructor <" << name << "> has been called!" << endl;
 }
 
 ScavTrap::~ScavTrap (void)
