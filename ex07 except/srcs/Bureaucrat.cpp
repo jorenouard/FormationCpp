@@ -44,12 +44,12 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &original)
 	return *this;
 }
 
-const std::string Bureaucrat::getName()
+const std::string Bureaucrat::getName() const
 {
 	return this->name;
 }
 
-const int Bureaucrat::getGrade()
+int Bureaucrat::getGrade() const
 {
 	return this->grade;
 }
