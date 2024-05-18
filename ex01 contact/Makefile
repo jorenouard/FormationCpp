@@ -5,7 +5,6 @@ FLAGS = -Wall -Wextra -Werror
 CC = g++
 
 SRCS = main.cpp \
-	phoneBook.cpp \
 	contact.cpp
 
 OBJECT = $(SRCS:.cpp=.o)
