@@ -1,0 +1,190 @@
+1) ##########
+
+Fichiers à rendre : Makefile, main.cpp, Zombie.{h, hpp}, Zombie.cpp,
+newZombie.cpp, randomChump.cpp
+
+
+Pour commencer, implémentez une classe Zombie. Elle possède un attribut privé
+name (nom) de type string.
+
+Ajoutez-lui une fonction membre void announce( void );. Les zombies se présentent
+(s’annoncent) ainsi :
+
+<nom>: BraiiiiiiinnnzzzZ...
+
+N’affichez pas les chevrons (< et >). Pour un zombie nommé Foo, le message serait :
+
+Foo: BraiiiiiiinnnzzzZ...
+
+Ensuite, implémentez les fonctions suivantes :
+	• Zombie* newZombie( std::string name );
+		Crée un zombie, lui donne un nom et le retourne afin qu’il puisse être utilisé en dehors de la portée de la fonction.
+	• void randomChump( std::string name );
+		Crée un zombie, lui donne un nom et le fait se présenter.
+
+Quel est donc le but de l’exercice ? Vous devez déterminez dans quel cas il est plus
+judicieux d’allouer les zombies sur le tas, et dans quel autre sur la pile.
+Les zombies doivent être détruits lorsque vous n’en avez plus besoin. Le destructeur
+doit afficher un message de débug comportant le nom du zombie.
+
+```
+#include <cstdlib> // EXIT_* MACROS
+#include <iostream> // std::cin, std::cout, std::endl
+#include <string>
+#include <stdio.h>
+#include "Zombie.hpp"
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main(void)
+{
+    std::string input;
+
+    /* STACK */
+    cout << "Name the stacked Zombie 🧟‍♂️: ";
+    getline(cin, input);
+    if (cin.eof() == true)
+    {
+        cin.clear();
+        clearerr(stdin);
+		cout << endl;
+    }
+    
+    randomChump(input);
+
+    /* HEAP ZOMBIE */
+    cout << "Name the heap Zombie 🧟‍♂️: ";
+    getline(cin, input);
+    if (cin.eof() == true)
+    {
+        cin.clear();
+        clearerr(stdin);
+	    cout << endl;
+    }
+
+    Zombie *new_zombie = newZombie(input);
+    /* Upon main() exit, if new_zombie is not deleted
+    the destructor is not called, causing a memory leak */
+    delete new_zombie;
+
+    return EXIT_SUCCESS;
+}
+```
+
+2) #########
+
+Fichiers à rendre : Makefile, main.cpp, Zombie.{h, hpp}, Zombie.cpp,
+zombieHorde.cpp
+
+Il est maintenant temps de créer une horde de Zombies !
+
+Implémentez la fonction suivante dans le fichier correspondant :
+	Zombie* zombieHorde( int N, std::string name );
+		Cette fonction doit allouer N objets Zombie en une seule allocation. Ensuite, elle doit initialiser les zombies en donnant à chacun le nom passé en paramètre. Elle retourne un pointeur sur le premier zombie.
+
+Écrivez vos propres tests afin de vous assurer que votre fonction zombieHorde() se
+comporte comme demandé. Essayez d’appeler announce() pour chacun des zombies.
+N’oubliez pas de tous les delete et de vérifiez que vous n’avez pas de fuites de
+mémoire.
+
+
+```
+#include <cstdlib> // EXIT_* MACROS
+#include <iostream> // std::cin, std::cout, std::endl
+#include <string>
+#include <stdio.h>
+#include "Zombie.hpp"
+
+using std::cin;
+using std::cout;
+using std::endl;
+
+int main(void)
+{
+    std::string zombies_name;
+    int n;
+
+    while (1)
+    {
+        cout << "Name the Zombies 🧟‍♂️: ";
+        getline(cin, zombies_name);
+        if (cin.eof() == true)
+        {
+            cin.clear();
+            clearerr(stdin);
+			cout << endl;
+        }
+        if (!zombies_name.empty())
+            break;
+        cout << "Please insert a name for the zombies" << endl;
+    }
+
+    cout << "How much zombies you'd like to have?" << endl;
+    cin >> n;
+
+    Zombie  *zombie_army = zombieHorde(n, zombies_name);
+
+    for (int i = 0; i < n; i += 1)
+        zombie_army[i].announce();
+
+    delete[]  zombie_army;
+    return EXIT_SUCCESS;
+}
+```
+
+
+3) ##########
+
+Fichiers à rendre : Makefile, main.cpp, Weapon.{h, hpp}, Weapon.cpp,
+HumanA.{h, hpp}, HumanA.cpp, HumanB.{h, hpp}, HumanB.cpp
+
+Implémentez une classe Weapon (arme) qui possède :
+• Un attribut privé type de type string.
+• Une fonction membre getType() retournant une référence constante sur type.
+• Une fonction membre setType() qui attribue à type la nouvelle valeur passée en
+paramètre.
+
+Maintenant, créez deux classes HumanA et HumanB. 
+
+Toutes deux possèdent une Weapon et un name, ainsi qu’une fonction membre attack() affichant (sans les chevrons
+bien sûr) :
+
+<name> attacks with their <weapon type>
+HumanA et HumanB sont presque identiques, à l’exception de deux petits détails :
+• Alors que le constructeur de HumanA prend une Weapon comme paramètre, ce
+n’est pas le cas de celui de HumanB.
+• HumanB n’aura pas toujours une Weapon, tandis que HumanA en aura forcément une.
+
+
+Si votre implémentation est correcte, l’exécution du code suivant affichera une attaque
+avec "crude spiked club", puis une attaque avec "some other type of club", pour les deux
+tests :
+
+```
+int main()
+{
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanA bob("Bob", club);
+		bob.attack();
+		club.setType("some other type of club");
+		bob.attack();
+	}
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanB jim("Jim");
+		jim.setWeapon(club);
+		jim.attack();
+		club.setType("some other type of club");
+		jim.attack();
+	}
+	return 0;
+}
+
+```
+
+Dans quel cas pensez-vous plus judicieux d’utiliser un pointeur sur
+Weapon ? Et une référence sur Weapon ? Pourquoi ? Prenez le temps d’y
+réfléchir avant de commencer.

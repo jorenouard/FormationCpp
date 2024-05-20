@@ -1,0 +1,141 @@
+1) #############
+
+Files to turn in : Makefile, *.cpp, *.{h, hpp}
+
+Implement a Base class that has a public virtual destructor only. Create three empty classes A, B and C, that publicly inherit from Base.
+
+These four classes don’t have to be designed in the Orthodox Canonical Form.
+
+
+
+Feel free to use anything you like for the random choice implementation.
+	void identify_from_pointer(Base * p);
+It prints the actual type of the pointer p: "A", "B" or "C".
+	void identify_from_reference( Base & p);
+It prints the actual type of the object referenced by p: "A", "B" or "C".
+Using a pointer inside this function is forbidden.
+
+Including the typeinfo header is forbidden.
+
+```
+#include "Base.hpp"
+
+int main()
+{
+    A   a;
+    B   b;
+    C   c;
+    Base base;
+
+    identify_from_pointer(&a);
+    identify_from_pointer(&c);
+    identify_from_pointer(&b);
+    identify_from_pointer(&base);
+
+    identify_from_reference(a);
+    identify_from_reference(b);
+    identify_from_reference(c);
+    identify_from_reference(base);
+
+}
+```
+
+$>./types 
+A
+C
+B
+A
+B
+C
+
+
+2) ############
+
+Files to turn in : Makefile, *.cpp, *.{h, hpp}
+
+Write a function 
+	"void * serialize( void );".
+
+This function will return the address on the heap of a sequence of bytes that represent a piece of serialized data.
+The serialized data is the concatenation of a random array of 8 alphanumerical characters, a random integer and a second random array of 8 alphanumerical characters.
+Feel free to use anything you like to generate the random values.
+
+Write a function 
+	"Data * deserialize( void * raw );".
+This function will deserialize the raw data to a Data structure defined as 
+"struct Data { std::string s1; int n; std::string s2; };" 
+
+allocated on the heap.
+
+
+```
+#include "serialize.hpp"
+
+int main()
+{
+    void    *raw;
+    Data    *data;
+
+    raw = serialize();
+    data = deserialize(raw);
+    std::cout << "s1 =" + data->s1 + '\n';
+    std::cout << "n =";
+    std::cout << data->n;
+    std::cout << "\ns2 =" + data->s2 + '\n';
+}
+```
+
+
+$>./serialize 
+s1 =Za2KiI5x
+n =802026
+s2 =Kkbt2PYS
+
+
+3) ##########
+
+
+Write a program that takes a string representation of a C++ literal value (in its most common form) as a parameter. 
+
+This literal must belong to one of the following a scalar types: char, int, float or double. 
+Only the decimal notation will be used.
+Examples of char literal values: ’c’, ’a’, ... 
+To simplify, please note that : non displayable characters can’t be passed as a parameter to your program, and if a conversion to char is not displayable, output a notification instead.
+
+Examples of int literal values: 0, -42, 42, ...
+
+Examples of float literal values: 0.0f, -4.2f, 4.2f, ...
+You will also accept these pseudo literals as well, you know, for science: -inff, +inff and inf.
+
+Examples of double literal values: 0.0, -4.2, 4.2, ... 
+Your program must detect the literal’s type, acquire that literal in the right type (so it’s not a string anymore), then convert it explicitly to each of the three other types and
+display the results using the same formatting as below. 
+If a conversion does not make sense or overflows, display that the conversion is impossible. 
+You can include any header you need to handle numeric limits and special values.
+
+./conversion +inf
+char : impossible
+int : impossible
+float : inf.0f
+Double : impossible
+
+./conversion +in
+Invalid format or can't be converted.
+
+./conversion +inff
+char : impossible
+int : impossible
+float : inf.0f
+Double : impossible
+
+./conversion 50
+char : '2'
+int : 50
+float : 50.0f
+Double : 50.0
+
+./conversion 90.001
+char : 'Z'
+int : 90
+float : 90.001f
+Double : 90.001

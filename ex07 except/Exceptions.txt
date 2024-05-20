@@ -1,0 +1,259 @@
+1) ##########
+
+Files to turn in : Bureaucrat.hpp Bureaucrat.cpp main.cpp
+
+Today, we’re going to create an artificial nightmare of offices, corridors, forms, and waiting in line. 
+Sounds fun ? No ? Too bad.
+
+First, we start by the smallest cog in the vast bureaucratic machine : the Bureaucrat.
+
+It must have a constant name, and a grade, that ranges from 1 (highest possible) to 150 (lowest possible). 
+
+Any attempt to create a Bureaucrat with an invalid grade must throw an exception, which will be either a Bureaucrat::GradeTooHighException or a Bureaucrat::GradeTooLowException.
+
+You will provide getters for both these attributes (getName and getGrade), and two functions to increment or decrement the grade.
+ 
+Both these functions will throw the same exceptions as before if the grade gets too high or too low. 
+
+Remember, grade 1 is highest, 150 is lowest, so incrementing a grade 3 gives you a grade 2 ...
+
+The exceptions you throw must be catchable by a block like :
+
+```
+try
+{
+	/* do some stuff with bureaucrats */
+}
+catch (std::exception & e)
+{
+	/* handle exception */
+}
+```
+
+You will provide an overload of the << operator to ostream that outputs something
+like <name>, bureaucrat grade <grade>.
+
+
+```
+int main(void)
+{
+	Bureaucrat nicolas("nicolas", 50);
+	std::cout << nicolas;
+	nicolas.incrementBureaucrat();
+	std::cout << nicolas;
+	nicolas.decrementBureaucrat();
+	std::cout << nicolas;
+    std::cout << nicolas.getName() + '\n';
+	try
+	{
+		Bureaucrat Sofie("Sofie", 0);
+		std::cout << Sofie;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	try
+	{
+		Bureaucrat Danielle("Danielle", 1000);
+		std::cout << Danielle;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	try
+	{
+		Bureaucrat Tarantino("Tarantino", 1);
+		std::cout << Tarantino;
+		Tarantino.incrementBureaucrat();
+		std::cout << Tarantino;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	try
+	{
+		Bureaucrat Djokovic("Djokovic", 150);
+		std::cout << Djokovic;
+		Djokovic.decrementBureaucrat();
+		std::cout << Djokovic;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	return (0);
+}
+```
+
+./a.out 
+	Bureaucrat <nicolas> : Grade 50
+	Bureaucrat <nicolas> : Grade 49
+	Bureaucrat <nicolas> : Grade 50
+	nicolas
+	Exception: The Grade is too high
+	Exception: The Grade is too low
+	Bureaucrat <Tarantino> : Grade 1
+	Exception: The Grade is too low
+	Bureaucrat <Djokovic> : Grade 150
+	Exception: The Grade is too high
+
+2) ###########
+
+Files to turn in : Same as before + Form.cpp Form.hpp
+
+Now that we have bureaucrats, better give them something to do with their time.
+What better occupation than a stack of forms to fill out ?
+Make a Form class. 
+
+It has a name, a boolean indicating whether it is signed (at the beginning, it’s not), a grade required to sign it, and a grade required to execute it.
+The name and grades are constant, and all these attributes are private (not protected).
+The grades are subject to the same constraints as in the Bureaucrat, and exceptions will be thrown if any of them are out of bounds, Form::GradeTooHighException and Form::GradeTooLowException.
+
+Same as before, make getters for all attributes, and an overload of the << operator to ostream that completely describes the state of the form.
+You will also add a beSigned function that takes a Bureaucrat, and makes the form signed if the bureaucrat’s grade is high enough. 
+Always remember, grade 1 is better than grade 2. 
+If the grade is too low, throw a Form::GradeTooLowException.
+
+Also add a signForm function to the Bureaucrat. 
+If the signing is successful, it will print something like "<bureaucrat> signs <form", otherwise it will print something like "<bureaucrat> cannot sign <form> because <reason>".
+
+```
+#include <iostream>
+#include "Bureaucrat.hpp"
+#include "Form.hpp"
+
+int main(void)
+{
+	Bureaucrat nicolas("nicolas", 50);
+	Form nuclear("nuclear", 150, 1);
+	Form visa("visa", 150, 100);
+	Form farm("farm", 150, 150);
+	std::cout << nicolas;
+	nicolas.incrementBureaucrat();
+	std::cout << nicolas;
+	nicolas.decrementBureaucrat();
+	std::cout << nicolas;
+    	std::cout << nicolas.getName() + '\n';
+	std::cout << visa;
+	visa.beSigned(nicolas);
+	nicolas.signForm(visa);
+	nicolas.signForm(farm);
+	nicolas.signForm(nuclear);
+	try
+	{
+		Bureaucrat Sofie("Sofie", 50);
+		Form chaos("chaos", 160, 50);
+		std::cout << Sofie;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	try
+	{
+		Bureaucrat Danielle("Danielle", 100);
+		Form peace("peace", 0, 100);
+		std::cout << Danielle;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	try
+	{
+		Bureaucrat Tarantino("Tarantino", 1);
+		std::cout << Tarantino;
+		Tarantino.incrementBureaucrat();
+		std::cout << Tarantino;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	try
+	{
+		Bureaucrat Djokovic("Djokovic", 150);
+		std::cout << Djokovic;
+		Djokovic.decrementBureaucrat();
+		std::cout << Djokovic;
+	}
+	catch(std::exception const &e)
+	{
+		std::cerr << e.what();
+	}
+	return (0);
+}
+
+```
+
+$>./a.out 
+Bureaucrat <nicolas> : Grade 50
+Bureaucrat <nicolas> : Grade 49
+Bureaucrat <nicolas> : Grade 50
+nicolas
+the form "visa" is isn't signed, however, its signing grade is : 150 and its executing grade is : 100
+nicolas cannot sign visa because this form is already signed
+nicolas signs the farm form
+nicolas signs the nuclear form
+Exception : the Form grade is too low
+Exception : the Form grade is too High
+Bureaucrat <Tarantino> : Grade 1
+Exception: The Bureaucrat Grade is too low
+Bureaucrat <Djokovic> : Grade 150
+Exception: The Bureaucrat Grade is too 
+
+
+3) ###############
+
+Files to turn in : Same as before + ShrubberyCreationForm.[hpp,cpp] RobotomyRequestForm.[hpp,cpp] PresidentialPardonForm.[hpp,cpp]
+
+Now that you have basic forms, you will make a few forms that actually do something.
+Create a few concrete forms :
+	• ShrubberyCreationForm (Required grades : sign 145, exec 137). 
+		Action : Create a file called <target>_shrubbery, and write ASCII trees inside it, in the current directory.
+	• RobotomyRequestForm (Required grades : sign 72, exec 45).
+		Action : Makes some drilling noises, and tells us that <target> has been robotomized successfully 50% of the time. the rest of times, tells us it’s a failure.
+	• PresidentialPardonForm (Required grades : sign 25, exec 5).
+	Action : Tells us <target> has been pardoned by Zafod Beeblebrox.
+
+All of these will have to take only one parameter in their constructor, which will represent the target of the form. 
+
+For example, "home" if you want to plant a shrubbery at home. 
+Remember the form’s attributes need to remain private, and in the base class.
+
+Now you need to add a method execute(Bureaucrat const & executor) const to the base form, and implement a method actually executing the form’s action in all the concrete forms. 
+You have to check that the form is signed, and that the bureaucrat attempting to execute the form has a high enough grade, else you will throw an appropriate exception. 
+Whether you want to make these checks in every concrete class or make the check in the base class then calling another method to actually execute the action is up to you, but one way is obviously prettier than the other one.
+In any event, the base form must be an abstract class.
+Finish this by adding an executeForm(Form const & form) function to the bureaucrat.
+It must attempt to execute the form, and if it’s a success, print something like
+	<bureaucrat> executes <form>.
+
+If not, print an explicit error message.
+
+Add whatever you need to your main to test that everything works.
+
+4) ##############
+
+Files to turn in : Same as before + Intern.hpp Intern.cpp
+
+Because filling out forms is annoying enough, it would just be cruel to ask our bureaucrats to write them entirely by themselves.
+No, we’ll just have an intern do that.
+You’re going to create the Intern class. 
+The intern has no name, no grade, no defining characteristics whatsoever, we only care that it does its job.
+The intern has one important thing, the makeForm function.
+It takes two strings, the first representing the name of a form, and the second one being the target for the form.
+It will return, as a pointer to Form, a pointer to whichever concrete form class is represented by the first parameter, initialized with the second parameter.
+It will print something like "Intern creates <form>" to the standard output.
+If the requested form is not known, print an explicit error message.
+For example, this would create a RobotomyRequestForm targeted on "Bender" :
+{
+	Intern someRandomIntern;
+	Form* rrf;
+	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+}
+
+Your main must, of course, test all of this.

@@ -1,0 +1,213 @@
+1) ########
+
+Fichiers à rendre : Makefile, main.cpp, Fixed.{h, hpp}, Fixed.cpp
+
+
+https://www.cprogramming.com/tutorial/floating_point/understanding_floating_point.html
+https://www.cprogramming.com/tutorial/floating_point/understanding_floating_point_representation.html
+https://www.cprogramming.com/tutorial/floating_point/understanding_floating_point_printing.html
+
+Jusqu’à aujourd’hui, tous les nombres utilisés dans votre code étaient soit des entiers,
+soit des flottants, soit éventuellement leurs dérivés (short, char, long, double, etc.).
+
+Après avoir lu les articles ci-dessus, il paraît évident d’affirmer que les caractéristiques des
+entiers et des nombres à virgule flottante sont opposées.
+
+Mais aujourd’hui, les choses vont changer. 
+
+Vous allez découvrir une notion inédite et passionnante : la représentation des nombres en virgule fixe !
+
+À jamais absents des types scalaires de la plupart des langages, les nombres à virgule fixe offrent un équilibre intéressant entre performance, exactitude, portée et précision.
+
+Cela explique pourquoi ces nombres sont largement utilisés dans l’imagerie numérique, le domaine du son ou la programmation scientifique, pour n’en citer que trois.
+
+Étant donné que le C++ ne possède pas de nombres à virgule fixe, vous allez les ajouter.
+
+Cet article de Berkeley(https://inst.eecs.berkeley.edu/~cs61c/sp06/handout/fixedpt.html) est un bon point de départ
+
+Consigne : 
+
+Créez une classe sous forme canonique pour représenter un nombre à virgule fixe.
+	• Membres privés :
+		◦ Un entier pour stocker la valeur du nombre en virgule fixe.
+		◦ Un entier constant statique pour stocker le nombre de bits de la partie fractionnaire, et dont la valeur sera toujours le littéral entier 8.
+	• Membres publics :
+		◦ Un constructeur par défaut qui initialisera la valeur du nombre à virgule fixe à 0.
+		◦ Un constructeur de recopie.
+		◦ Une surcharge de l’opérateur d’affectation.
+		◦ Un destructeur.
+		◦ Une fonction membre int getRawBits( void ) const; qui retourne la valeur du nombre à virgule fixe sans la convertir.
+		◦ Une fonction membre void setRawBits( int const raw ); qui initialise la valeur du nombre à virgule fixe avec celle passée en paramètre.
+
+Exécuter ce code :
+
+```
+#include <iostream>
+	int main( void ) {
+	Fixed a;
+	Fixed b( a );
+	Fixed c;
+	c = b;
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+	return 0;
+}
+```
+
+Devrait afficher ce résultat :
+$> ./a.out
+Default constructor called
+Copy constructor called
+Copy assignment operator called // <-- This line may be missing depending on your implementation
+getRawBits member function called
+Default constructor called
+Copy assignment operator called
+getRawBits member function called
+getRawBits member function called
+0
+getRawBits member function called
+0
+getRawBits member function called
+0
+Destructor called
+Destructor called
+Destructor called
+
+2) #############
+
+Fichiers à rendre : Makefile, main.cpp, Fixed.{h, hpp}, Fixed.cpp
+
+
+L’exercice précédent était un bon point de départ mais notre classe n’a pour l’instant pas beaucoup d’intérêt. 
+
+Elle peut seulement représenter la valeur 0.0.
+
+Ajoutez à votre classe les constructeurs et les fonctions membres suivants en public :
+	• Un constructeur prenant un entier constant en paramètre et qui convertit celuici en virgule fixe. Le nombre de bits de la partie fractionnaire est initialisé à 8 comme dans l’exercice 00.
+	• Un constructeur prenant un flottant constant en paramètre et qui convertit celui-ci en virgule fixe. Le nombre de bits de la partie fractionnaire est initialisé à 8 comme dans l’exercice 00.
+	• Une fonction membre float toFloat( void ) const; qui convertit la valeur en virgule fixe en nombre à virgule flottante.
+	• Une fonction membre int toInt( void ) const; qui convertit la valeur en virgule fixe en nombre entier.
+
+Ajoutez également la fonction suivante à vos fichiers de la classe Fixed :
+	• Une surcharge de l’opérateur d’insertion («) qui insère une représentation en virgule flottante du nombre à virgule fixe dans le flux de sortie (objet output stream) passé en paramètre.
+Exécuter ce code :
+
+```
+#include <iostream>
+	int main( void ) {
+	Fixed a;
+	Fixed const b( 10 );
+	Fixed const c( 42.42f );
+	Fixed const d( b );
+	a = Fixed( 1234.4321f );
+	std::cout << "a is " << a << std::endl;
+	std::cout << "b is " << b << std::endl;
+	std::cout << "c is " << c << std::endl;
+	std::cout << "d is " << d << std::endl;
+	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+	return 0;
+}
+
+```
+
+$> ./a.out
+Default constructor called
+Int constructor called
+Float constructor called
+Copy constructor called
+Copy assignment operator called
+Float constructor called
+Copy assignment operator called
+Destructor called
+a is 1234.43
+b is 10
+c is 42.4219
+d is 10
+a is 1234 as integer
+b is 10 as integer
+c is 42 as integer
+d is 10 as integer
+Destructor called
+Destructor called
+Destructor called
+Destructor called
+$>
+
+
+Fixed.cpp :
+```
+#include "Fixed.class.hpp"
+
+const int Fixed::fbits = 8;
+
+Fixed::Fixed(const int val)
+{
+	std::cout << "Int constructor called\n";
+	this->fpv = val << fbits;
+}
+
+Fixed::Fixed(const float val)
+{
+	std::cout << "Float constructor called\n";
+	this->fpv = val * (1 << fbits);
+}
+
+float	Fixed::toFloat(void) const
+{
+	return ((float)(this->fpv) / (1 << fbits));
+}
+
+int		Fixed::toInt(void) const
+{
+	return ((int)(this->fpv >> fbits));
+}
+
+```
+3) ###############
+
+Add :
+
+	• Six comparison operators : >, <, >=, <=, == and !=.
+	• Four arithmetic operators : +, -, *, and /.
+	• The pre-increment, post-increment, pre-decrement and post-decrement operators,
+		that will increment or decrement the fixed point value from the smallest representable
+		E such as 1 + E > 1.
+
+Add the following public non member functions overloads to your class :
+	• The non-member function min that takes references on two fixed point values and
+		returns a reference to the smallest value, and an overload that takes references on
+		two constant fixed point values and returns a reference to the smallest constant value.
+	• The non-member function max that takes references on two fixed point values and
+		returns a reference to the biggest value, and an overload that takes references on two
+		constant fixed point values and returns a reference to the biggest constant value.
+
+```
+#include <iostream>
+int main( void ) {
+	Fixed a;
+	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+	std::cout << a << std::endl;
+	std::cout << ++a << std::endl;
+	std::cout << a << std::endl;
+	std::cout << a++ << std::endl;
+	std::cout << a << std::endl;
+	std::cout << b << std::endl;
+	std::cout << Fixed::max( a, b ) << std::endl;
+	return 0;
+}
+```
+
+$> clang++ -Wall -Wextra -Werror Fixed.class.cpp main.cpp
+$> ./a.out
+0
+0.00390625
+0.00390625
+0.00390625
+0.0078125
+10.1016
+10.1016
+$>
