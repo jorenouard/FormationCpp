@@ -19,12 +19,19 @@ void printReverse(vector<int> v)
     cout << endl;
 }
 
+void bigToSmall(vector<int> v)
+{
+    sort(v.begin(), v.end(), [](int a, int b) {return a < b;});
+    printVector(v);
+}
+
 
 int main(){
     vector<int> v {4, 1, 3, 5, 2, 3, 1, 7};
 
     printVector(v);
     printReverse(v);
+    bigToSmall(v);
 
     vector<int>::iterator p = find_if(v.begin(), v.end(), [](int i) {
         return i > 4;
