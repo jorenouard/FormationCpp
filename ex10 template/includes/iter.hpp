@@ -6,18 +6,18 @@
     namespace iter
     {
         template <typename T>
-        void iter(T* adressArray, int lengthArray, T funtion)
+        void iter(T* adressArray, int lengthArray, void (*func)(const T&))
         {
             for (int i = 0; i < lengthArray; i++)
             {
-                function(adressArray+i);
+                func(adressArray[i]);
             }
         }
 
         template <typename T>
-        T show(T* toShow)
+        void show(T& toShow)
         {
-            std::cout << *toShow << std::endl;
+            std::cout << toShow << std::endl;
         }
     }
 
