@@ -5,6 +5,7 @@
     class Zombie
     {
         public:
+            Zombie(std::string nickName);
             ~Zombie();
             void announce();
             void setName(std::string name);
@@ -12,6 +13,7 @@
 
         private:
             std::string name = "default";
+            std::string nickName;
     };
 
     Zombie* newZombie(std::string name);
