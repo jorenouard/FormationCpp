@@ -1,0 +1,17 @@
+1) ############
+
+Fichiers a rendre : Lambda.cpp
+
+A partir d'un vecteur vector<int> v {4, 1, 3, 5, 2, 3, 1, 7};
+
+Creez :
+	-Une fonction pour afficher le vecteur complet. (https://en.cppreference.com/w/cpp/algorithm/for_each)
+	-Une fonction pour afficher le premier nombre supérieur à 4. (https://cplusplus.com/reference/algorithm/find_if/)
+	-Une fonction pour trier le vecteur dans l'ordre décroissant. (https://en.cppreference.com/w/cpp/algorithm/sort)
+	-Une fonction pour retourner le nombre d'éléments supérieurs ou égaux à 5 dans le vecteur. (https://en.cppreference.com/w/cpp/algorithm/count)
+	-Une fonction pour supprimer tous les doublons. (https://en.cppreference.com/w/cpp/algorithm/unique)
+	-Une fonction pour modifier la taille du tableau afin de garder uniquement les éléments uniques. (https://en.cppreference.com/w/cpp/container/vector/resize)
+
+	-Une fonction lambda qui permet, à travers le tableau int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};, de calculer le factoriel de 10. (https://en.cppreference.com/w/cpp/algorithm/accumulate)
+	-Une fonction lambda qui permet de calculer le carré d'un nombre.
+

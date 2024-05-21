@@ -1,0 +1,74 @@
+1) ##########
+
+
+Files to turn in : Makefile, main.cpp, BitcoinExchange.{cpp, hpp}
+
+
+Vous devez créer un programme qui affiche la valeur d’une certaine quantité de bitcoins à une certaine date. 
+Ce programme doit utiliser une base de données au format CSV qui représentera le prix du bitcoin au fil du temps. 
+
+Le programme prendra en entrée une deuxième base de données stockant les différents prix / dates à évaluer.
+Votre programme doit respecter ces règles:
+	• Le nom du programme est btc.
+	• Votre programme doit prendre un fichier en argument.
+	• Chaque ligne de ce fichier doit utiliser le format suivant: "date | valeur".
+	• Une date valide sera toujours au format "Année-Mois-Jour" (YYYY-MM-DD).
+	• Une valeur valide doit être soit un nombre à virgule flottante (float), ou un entier positif, compris entre 0 et 1000.
+
+
+Voici un exemple d’un fichier input.txt
+
+$> head input.txt
+date | value
+2011-01-03 | 3
+2011-01-03 | 2
+2011-01-03 | 1
+2011-01-03 | 1.2
+2011-01-09 | 1
+2012-01-11 | -1
+2001-42-42
+2012-01-11 | 1
+2012-01-11 | 2147483648
+
+
+Votre programme va utiliser la valeur dans votre fichier input.
+Votre programme doit affichier sur la sortie standard le résultat de la valeur multipliée par le taux de change en fonction de la date indiquée dans votre base de données.
+L’exemple suivant démontre le fonctionnement de votre programme.
+
+$> ./btc
+Error: could not open file.
+$> ./btc input.txt
+2011-01-03 => 3 = 0.9
+2011-01-03 => 2 = 0.6
+2011-01-03 => 1 = 0.3
+2011-01-03 => 1.2 = 0.36
+2011-01-09 => 1 = 0.32
+Error: not a positive number.
+Error: bad input => 2001-42-42
+2012-01-11 => 1 = 7.1
+Error: too large a number.
+$>
+
+
+2) ###########
+
+Files to turn in : Makefile, main.cpp, RPN.{cpp, hpp}
+
+Vous devez créer un programme avec ces contraintes:
+	• Le nom du programme est RPN.
+	• Votre programme doit prendre en argument une expression mathématique en notation polonaise inversée. (https://blog.takima.fr/et-si-on-calculait-en-reverse-polish-notation/)
+	• Les chiffres utilisés dans cette opération et transmis en tant qu’arguments seront toujours inférieurs à 10. 
+		Le calcul lui-même ainsi que le résultat ne tiennent pas compte de cette règle.
+	• Votre programme doit traiter cette expression et afficher le résultat correct sur la sortie standard.
+	• Si une erreur se produit pendant l’exécution du programme, un message d’erreur doit être affiché sur la sortie standard.
+	• Votre programme doit être capable de gérer les opérations avec ces opérateurs: "+ - / *".
+
+$> ./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
+42
+$> ./RPN "7 7 * 7 -"
+42
+$> ./RPN "1 2 * 2 / 2 * 2 4 - +"
+0
+$> ./RPN "(1 + 1)"
+Error
+$>
