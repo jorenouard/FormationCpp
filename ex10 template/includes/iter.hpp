@@ -10,14 +10,14 @@
         {
             for (int i = 0; i < lengthArray; i++)
             {
-                function(adressArray)
+                function(*(adressArray+i));
             }
         }
 
         template <typename T>
-        T show(T toShow)
+        T show(T* toShow)
         {
-            std::cout << *(toShow+i) << std::endl;
+            std::cout << *toShow << std::endl;
         }
     }
 
