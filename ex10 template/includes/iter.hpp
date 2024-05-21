@@ -10,7 +10,7 @@
         {
             for (int i = 0; i < lengthArray; i++)
             {
-                function(*(adressArray+i));
+                function(adressArray+i);
             }
         }
 
