@@ -2,9 +2,9 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 INCLUDE = -I./includes
 VPATH = srcs
-RM = rm -rf
+RM = del /f /q /a
 
-GENERAL = Zombie zombieHorde
+GENERAL = Zombie zombieHorde Weapon HumanA
 
 NAME = horde
 SRCS = $(addsuffix .cpp, $(GENERAL))\
@@ -28,7 +28,7 @@ clean:
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME).exe
 
 re: fclean all
 

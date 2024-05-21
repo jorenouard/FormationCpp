@@ -8,34 +8,22 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-int main(void)
+int main()
 {
-    std::string zombies_name;
-    int n;
-
-    while (1)
-    {
-        cout << "Name the Zombies 🧟‍♂️: ";
-        getline(cin, zombies_name);
-        if (cin.eof() == true)
-        {
-            cin.clear();
-            clearerr(stdin);
-			cout << endl;
-        }
-        if (!zombies_name.empty())
-            break;
-        cout << "Please insert a name for the zombies" << endl;
-    }
-
-    cout << "How much zombies you'd like to have?" << endl;
-    cin >> n;
-
-    Zombie  *zombie_army = zombieHorde(n, zombies_name);
-
-    for (int i = 0; i < n; i += 1)
-        zombie_army[i].announce();
-
-    delete[]  zombie_army;
-    return EXIT_SUCCESS;
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanA bob("Bob", club);
+		bob.attack();
+		club.setType("some other type of club");
+		bob.attack();
+	}
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanB jim("Jim");
+		jim.setWeapon(club);
+		jim.attack();
+		club.setType("some other type of club");
+		jim.attack();
+	}
+	return 0;
 }
