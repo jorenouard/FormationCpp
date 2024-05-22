@@ -1,0 +1,81 @@
+Nous aurons deux styles de pizza : "New York" et "Chicago", chacun avec son propre ensemble de types de pizza.
+
+Étape 1 : Définir une interface de fabrique abstraite (PizzaFactory) avec des méthodes pour créer différents types de pizzas pour différents styles.
+class PizzaFactory {
+public:
+	virtual Pizza* createCheesePizza() = 0;
+	virtual Pizza* createPepperoniPizza() = 0;
+};
+Étape 2 : Créer deux fabriques concrètes (NewYorkPizzaFactory et ChicagoPizzaFactory) implémentant cette interface et créer des pizzas correspondant aux styles New York et Chicago.
+
+//class NewYorkPizzaFactory : public PizzaFactory{
+
+}
+
+
+//class ChicagoPizzaFactory : public PizzaFactory {
+
+}
+
+Étape 3 : Créer une interface de produit abstrait (Pizza) qui définit les méthodes que les pizzas concrètes doivent implémenter. Les classes de pizzas concrètes (NewYorkCheesePizza, NewYorkPepperoniPizza, ChicagoCheesePizza, ChicagoPepperoniPizza) implémentent l'interface Pizza abstraite pour chaque style.
+
+class Pizza {
+public:
+	bake()
+	cut() 
+	box() 
+};
+
+//class NewYorkCheesePizza : public Pizza 
+//class NewYorkPepperoniPizza : public Pizza
+//class ChicagoCheesePizza : public Pizza
+//class ChicagoPepperoniPizza : public Pizza
+
+Le code client créera et préparera des pizzas en utilisant les fabriques abstraites et interagira avec elles sans avoir besoin de connaître les styles ou implémentations spécifiques des pizzas.
+
+int main()
+{
+	// Create a New York Pizza Factory
+	PizzaFactory* newYorkFactory
+		= new NewYorkPizzaFactory();
+	Pizza* newYorkCheesePizza
+		= newYorkFactory->createCheesePizza();
+	Pizza* newYorkPepperoniPizza
+		= newYorkFactory->createPepperoniPizza();
+
+	// Create a Chicago Pizza Factory
+	PizzaFactory* chicagoFactory
+		= new ChicagoPizzaFactory();
+	Pizza* chicagoCheesePizza
+		= chicagoFactory->createCheesePizza();
+	Pizza* chicagoPepperoniPizza
+		= chicagoFactory->createPepperoniPizza();
+
+	// Order and prepare the pizzas
+	newYorkCheesePizza->bake();
+	newYorkCheesePizza->cut();
+	newYorkCheesePizza->box();
+
+	newYorkPepperoniPizza->bake();
+	newYorkPepperoniPizza->cut();
+	newYorkPepperoniPizza->box();
+
+	chicagoCheesePizza->bake();
+	chicagoCheesePizza->cut();
+	chicagoCheesePizza->box();
+
+	chicagoPepperoniPizza->bake();
+	chicagoPepperoniPizza->cut();
+	chicagoPepperoniPizza->box();
+
+	// Clean up
+	delete newYorkFactory;
+	delete newYorkCheesePizza;
+	delete newYorkPepperoniPizza;
+	delete chicagoFactory;
+	delete chicagoCheesePizza;
+	delete chicagoPepperoniPizza;
+
+	return 0;
+}
+

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-void HumanA::HumanA (std::string name, Weapon weapon) : name(name), weapon(weapon) 
+HumanA::HumanA (std::string name, Weapon weapon) : name(name), weapon(weapon) 
 {
     std::cout << name << ", a HumanA is created." << std::endl;
 }

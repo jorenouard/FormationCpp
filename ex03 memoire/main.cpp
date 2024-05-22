@@ -2,7 +2,9 @@
 #include <iostream> // std::cin, std::cout, std::endl
 #include <string>
 #include <stdio.h>
-#include "includes/Zombie.hpp"
+#include "includes/Weapon.hpp"
+#include "includes/HumanA.hpp"
+#include "includes/HumanB.hpp"
 
 using std::cin;
 using std::cout;

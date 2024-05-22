@@ -1,0 +1,104 @@
+Composants de base du modèle de méthode de fabrique en C++
+
+1. Creator (Abstract Creator)
+
+Description : Une classe abstraite ou une interface responsable de déclarer la méthode de fabrique, qui renvoie un objet de type produit. La classe Creator peut également contenir d'autres méthodes qui reposent sur la méthode de fabrique pour créer des objets.
+But : Fournir une interface commune pour la création d'objets, mais la création spécifique d'objets est déléguée aux créateurs concrets.
+
+2. Concrete Creator
+
+Description : Sous-classes concrètes du Creator. Chaque créateur concret implémente la méthode de fabrique déclarée dans le créateur abstrait, renvoyant un type spécifique de produit.
+But : Responsable de la création d'instances de produits concrets, encapsulant ainsi la logique réelle de création d'objets.
+
+3. Product (Abstract Product)
+
+Description : La classe abstraite ou l'interface pour les objets créés par la méthode de fabrique. Elle définit l'interface commune que tous les produits doivent implémenter.
+But : Spécifier l'interface à laquelle les produits concrets doivent adhérer, garantissant qu'ils possèdent un ensemble cohérent de méthodes.
+
+4. Concrete Product
+
+Description : Implémentations concrètes de l'interface Product. Chaque produit concret représente un type d'objet distinct.
+But : Définir les objets réels que la méthode de fabrique crée. Chaque produit concret a sa propre implémentation des méthodes spécifiées dans l'interface Product.
+
+5. Client
+
+Description : Le code client interagit avec le Creator via la classe Creator abstraite et repose sur la méthode de fabrique pour créer des instances de produits.
+But : Utiliser le modèle de méthode de fabrique pour créer des objets sans avoir besoin de connaître la classe spécifique des objets créés, favorisant ainsi la flexibilité et le découplage entre les classes client et produit.
+
+
+Étape 1 : Définir le produit abstrait (Shape)
+// Classe produit abstrait
+
+
+Ici, nous avons défini une classe abstraite Shape avec une fonction virtuelle pure draw(). Cette classe représente le produit abstrait que tous les produits concrets doivent hériter.
+
+
+Étape 2 : Définir les produits concrets (Circle et Square)
+// Classe produit concret - Circle
+
+/ Classe produit concret - Square
+
+Ici, nous avons deux classes concrètes, Circle et Square, qui héritent de la classe abstraite Shape. Chaque produit concret (Circle et Square) fournit son implémentation de la méthode draw().
+
+Étape 3 : Définir le créateur abstrait
+
+// Classe créateur abstrait
+La classe créateur abstrait, ShapeFactory, déclare une fonction virtuelle pure createShape(), qui sera implémentée par les créateurs concrets pour créer des formes spécifiques
+
+Étape 4 : Définir les créateurs concrets (CircleFactory et SquareFactory)
+
+// Classe créateur concret - CircleFactory
+
+// Classe créateur concret - SquareFactory
+
+À cette étape, nous avons créé deux classes créateurs concrètes, CircleFactory et SquareFactory, qui implémentent la méthode createShape() pour créer des instances de Circle et Square, respectivement.
+
+
+Step 5: Client Code
+
+Maintenant, créons un client pour utiliser le modèle de méthode de fabrique :
+
+int main()
+{
+    ShapeFactory* circleFactory = new CircleFactory();
+    ShapeFactory* squareFactory = new SquareFactory();
+
+    Shape* circle = circleFactory->createShape();
+    Shape* square = squareFactory->createShape();
+
+    circle->draw(); // Output: Drawing a Circle
+    square->draw(); // Output: Drawing a Square
+
+    delete circleFactory;
+    delete squareFactory;
+    delete circle;
+    delete square;
+  
+      // Client code based on user-input
+  
+      /* cout << "Enter shape type (circle or square): ";
+    string shapeType;
+    cin >> shapeType;
+
+    ShapeFactory* shapeFactory = nullptr;
+    if (shapeType == "circle") {
+        shapeFactory = new CircleFactory();
+    } else if (shapeType == "square") {
+        shapeFactory = new SquareFactory();
+    } else {
+        cout << "Invalid shape type entered." << endl;
+        return 1;
+    }
+
+    Shape* shape = shapeFactory->createShape();
+    shape->draw();
+
+    delete shapeFactory;
+    delete shape; */
+
+    return 0;
+}
+
+
+>>Drawing a Circle
+Drawing a Square

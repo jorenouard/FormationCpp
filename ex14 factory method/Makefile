@@ -1,14 +1,14 @@
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++11 #-fsanitize=address
 INCLUDE = -I./includes
 VPATH = srcs
 RM = del /f /q /a
 
-GENERAL = Weapon HumanA HumanB
+GENERAL = 
 
-NAME = horde
+NAME = Circle CircleFactory Shape ShapeFactory Square SquareFactory
 SRCS = $(addsuffix .cpp, $(GENERAL))\
-	   main.cpp
+	   main.cpp		
 
 OBJ_DIR = obj
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
@@ -33,7 +33,8 @@ fclean: clean
 re: fclean all
 
 run: all clean
-	./$(NAME)
+	echo ""
+	./ex01
 
 .PHONY: all clean fclean re run
 
