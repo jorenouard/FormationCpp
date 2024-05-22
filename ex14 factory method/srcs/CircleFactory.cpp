@@ -4,5 +4,5 @@
 
 Shape CircleFactory::createShape()
 {
-    return Circle circle;
+    return new Circle();
 }
