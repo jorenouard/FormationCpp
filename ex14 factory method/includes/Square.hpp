@@ -5,7 +5,7 @@
 
     class Square : public Shape {
         public :
-            draw() override;
+            void draw() override;
 
         private :
 
