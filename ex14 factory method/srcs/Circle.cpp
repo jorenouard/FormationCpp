@@ -3,5 +3,5 @@
 
 Circle::draw()
 {
-    std::cout << "I draw a circle." << std::endl;
+    std::cout << "Drawing a circle." << std::endl;
 }

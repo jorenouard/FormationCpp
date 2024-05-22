@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
-#include "Circle.hpp"
-#include "CircleFactory.hpp"
-#include "Shape.hpp"
-#include "ShapeFactory.hpp"
-#include "Square.hpp"
-#include "SquareFactory.hpp"
+#include "includes\Circle.hpp"
+#include "includes\CircleFactory.hpp"
+#include "includes\Shape.hpp"
+#include "includes\ShapeFactory.hpp"
+#include "includes\Square.hpp"
+#include "includes\SquareFactory.hpp"
 
 int main()
 {

@@ -5,7 +5,7 @@
 
     class Circle : public Shape {
         public :
-            draw();
+            draw() override;
             
         private :
 

@@ -5,7 +5,8 @@
 
 class ShapeFactory {
     public:
-        virtual Shape createShape() = 0;
+        virtual Shape* createShape() = 0;
+        virtual ~ShapeFactory();
     private:
 
 };

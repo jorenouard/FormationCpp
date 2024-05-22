@@ -7,7 +7,7 @@
 
     class SquareFactory : public ShapeFactory {
         public:
-            Shape createShape();
+            Shape* createShape() override;
         private:
 
     };

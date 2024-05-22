@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-Shape SquareFactory::createShape()
+Shape* SquareFactory::createShape()
 {
-    return Square;
+    return new Square();
 }

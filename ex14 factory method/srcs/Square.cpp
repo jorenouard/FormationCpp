@@ -3,5 +3,5 @@
 
 Square::draw()
 {
-    std::cout << "I draw a square." << std::endl;
+    std::cout << "Drawing a square." << std::endl;
 }

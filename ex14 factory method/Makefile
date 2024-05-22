@@ -4,9 +4,9 @@ INCLUDE = -I./includes
 VPATH = srcs
 RM = del /f /q /a
 
-GENERAL = 
+GENERAL = Circle CircleFactory Square SquareFactory
 
-NAME = Circle CircleFactory Shape ShapeFactory Square SquareFactory
+NAME = fm
 SRCS = $(addsuffix .cpp, $(GENERAL))\
 	   main.cpp		
 
