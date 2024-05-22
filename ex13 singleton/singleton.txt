@@ -1,0 +1,45 @@
+
+We have a Singleton class with a private constructor and a private destructor, ensuring that the class can only be instantiated and destroyed from within the class itself.
+The getInstance method is static and provides access to the single instance of the Singleton class. It uses lazy initialization, meaning it creates the instance only when getInstance is called for the first time. Subsequent calls return the existing instance.
+We delete the copy constructor and assignment operator to prevent copying of the Singleton instance, ensuring there’s only one instance.
+In the main function, we demonstrate how to access and use the Singleton instance. Attempting to create another instance using the regular constructor is prevented because the constructor is private.
+
+Class Singleton :
+	Creation d'une instance statique
+	supressions du copy constructor and assignment operator
+	le destructeur ne doit pas etre invoquer lors de la sortie du conxtexte de notre code
+	
+#include <iostream>
+
+class Singleton {
+public:
+	// Static method to access the singleton instance
+	// Public method to perform some operation
+	// Delete the copy constructor and assignment operator
+
+private:
+
+};
+
+// Initialize the static instance variable to nullptr
+Singleton* Singleton::instance = nullptr;
+
+int main()
+{
+	// Access the Singleton instance
+	Singleton& singleton = Singleton::getInstance();
+
+	// Use the Singleton instance
+	singleton.someOperation();
+
+	// Attempting to create another instance will not work
+	// Singleton anotherInstance; // This line would not
+	// compile
+
+	return 0;
+}
+
+
+>>
+Singleton instance created.
+Singleton is performing some operation.
