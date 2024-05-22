@@ -2,11 +2,11 @@
 
 class Pizza {
 public:
-	void bake();
-	void cut();
-	void box();
+	virtual void bake() = 0;
+	virtual void cut() = 0;
+	virtual void box() = 0;
     virtual ~Pizza(){
-        
+
     }
 };
 
@@ -16,6 +16,54 @@ public:
 	virtual Pizza* createPepperoniPizza() = 0;
     virtual ~PizzaFactory(){
 
+    }
+};
+
+class NewYorkCheesePizza : public Pizza{
+    void bake() override{
+        std::cout << "Bake from NewYorkCheesePizza" << std::endl;
+    }
+    void cut() override{
+        std::cout << "cut from NewYorkCheesePizza" << std::endl;
+    }
+    void box() override{
+        std::cout << "box from NewYorkCheesePizza" << std::endl;
+    }
+};
+
+class NewYorkPepperoniPizza : public Pizza{
+    void bake() override{
+        std::cout << "Bake from NewYorkPepperoniPizza" << std::endl;
+    }
+    void cut() override{
+        std::cout << "cut from NewYorkPepperoniPizza" << std::endl;
+    }
+    void box() override{
+        std::cout << "box from NewYorkPepperoniPizza" << std::endl;
+    }
+};
+
+class ChicagoCheesePizza : public Pizza{
+    void bake() override{
+        std::cout << "Bake from ChicagoCheesePizza" << std::endl;
+    }
+    void cut() override{
+        std::cout << "cut from ChicagoCheesePizza" << std::endl;
+    }
+    void box() override{
+        std::cout << "box from ChicagoCheesePizza" << std::endl;
+    }
+};
+
+class ChicagoPepperoniPizza : public Pizza{
+    void bake() override{
+        std::cout << "Bake from ChicagoPepperoniPizza" << std::endl;
+    }
+    void cut() override{
+        std::cout << "cut from ChicagoPepperoniPizza" << std::endl;
+    }
+    void box() override{
+        std::cout << "box from ChicagoPepperoniPizza" << std::endl;
     }
 };
 
@@ -40,10 +88,7 @@ public:
     }
 };
 
-class NewYorkCheesePizza : public Pizza{};
-class NewYorkPepperoniPizza : public Pizza{};
-class ChicagoCheesePizza : public Pizza{};
-class ChicagoPepperoniPizza : public Pizza{};
+
 
 int main()
 {
